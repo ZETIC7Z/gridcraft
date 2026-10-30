@@ -1,9 +1,9 @@
-//! GridCraft desktop app.
+﻿//! GridCraft desktop app.
 //!
-//! Usage: `gridcraft [--control <port> [--control-token <token>]] [--sample <name>] [files…]`
+//! Usage: `gridcraft [--control <port> [--control-token <token>]] [--sample <name>] [filesâ€¦]`
 //!
 //! `--control <port>` (or `GRIDCRAFT_CONTROL_PORT`) starts a localhost JSON-lines control
-//! server: `{"id":1,"method":"ui.inspect","params":{}}` → `{"id":1,"ok":true,"result":…}`.
+//! server: `{"id":1,"method":"ui.inspect","params":{}}` â†’ `{"id":1,"ok":true,"result":â€¦}`.
 //! The first line of each connection must carry the token (`docs/control-protocol.md`).
 //! See `gridcraft_ui_egui::control` and `docs/control-protocol.md` for the methods.
 #![cfg_attr(all(target_os = "windows", not(debug_assertions)), windows_subsystem = "windows")]
@@ -68,7 +68,7 @@ impl eframe::App for App {
         // macOS adapter subclasses the window's content view and restores its class on teardown;
         // AppKit's Touch Bar support observes that view (KVO), so in the next display cycle
         // `-[_NSTouchBarFinderObservation invalidate]` throws "not registered" and the quit ends
-        // in a crash report. eframe calls `on_exit` on every way of quitting (Quit/⌘Q, the Dock,
+        // in a crash report. eframe calls `on_exit` on every way of quitting (Quit/âŒ˜Q, the Dock,
         // the close button, `app.quit`), and nothing after it is needed: the preferences are
         // saved and the log file is unbuffered. eframe does the same when it doesn't
         // run-and-return. `on_exit` only runs once the app exists, never on a failed start.
@@ -321,14 +321,14 @@ fn main() -> eframe::Result<()> {
         app.session.new_workbook();
     }
     app.after_engine(); // Show warnings from the sample.
-    // Files named on the command line (a double-click on Windows and Linux) open as File › Open
+    // Files named on the command line (a double-click on Windows and Linux) open as File â€º Open
     // opens them: a password-protected one asks for its password, and errors are shown, not
     // only logged. Each replaces the untouched blank Book1, as a file opened from Finder does.
     for f in &files {
         app.open_path(f);
     }
     let mut viewport = egui::ViewportBuilder::default()
-        .with_title("GridCraft")
+        .with_title("Zetica Grid")
         .with_inner_size([1440.0, 900.0])
         .with_min_inner_size([640.0, 420.0])
         .with_app_id("ai.storyteller.gridcraft")
@@ -375,8 +375,7 @@ fn main() -> eframe::Result<()> {
     // (no graphics adapter, device or surface) leaves it here for the next attempt.
     let pending = std::cell::Cell::new(Some(app));
     let run = |options: eframe::NativeOptions| {
-        eframe::run_native(
-            "GridCraft",
+        eframe::run_native("Zetica Grid",
             options,
             Box::new(|cc| {
                 let Some(mut app) = pending.take() else {
@@ -446,3 +445,4 @@ mod packaging_tests {
         }
     }
 }
+

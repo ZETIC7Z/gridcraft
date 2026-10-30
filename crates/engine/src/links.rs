@@ -1,4 +1,4 @@
-//! Which hyperlink targets may be opened. A cell's link comes from the document (often a file
+﻿//! Which hyperlink targets may be opened. A cell's link comes from the document (often a file
 //! somebody sent), so it is hostile input: only `http`, `https` and `mailto` ever leave the
 //! workbook for the system; `file:`, `smb:`, UNC paths, custom URL handlers, `javascript:` and
 //! the like are refused. Everything without a scheme stays an in-workbook reference.
@@ -81,3 +81,4 @@ mod tests {
         }
     }
 }
+

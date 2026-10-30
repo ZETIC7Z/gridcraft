@@ -1,21 +1,21 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
   <?ifndef HasCraftFontLicences ?>
   <?define HasCraftFontLicences=0 ?>
   <?endif?>
-  <Package Name="GridCraft" Manufacturer="Learning Machines LLC" Version="$(var.Version)" UpgradeCode="5511327B-F305-41BE-92D0-EB84944E7C4D" Scope="perUserOrMachine" Compressed="yes" Language="1033">
-    <SummaryInformation Description="GridCraft spreadsheet" Manufacturer="Learning Machines LLC" />
+  <Package Name="Zetica Grid" Manufacturer="ZETICA / Sam Pangilinan" Version="$(var.Version)" UpgradeCode="5511327B-F305-41BE-92D0-EB84944E7C4D" Scope="perUserOrMachine" Compressed="yes" Language="1033">
+    <SummaryInformation Description="Zetica Grid spreadsheets and data analysis" Manufacturer="ZETICA / Sam Pangilinan" />
     <?include $(sys.SOURCEFILEDIR)install-policy.wxi?>
     <!-- Same-version upgrades let successive pre-releases of one X.Y.Z replace each other
          (MSI versions are numeric, so 1.2.3-rc.1 and 1.2.3-rc.2 are both 1.2.3). -->
-    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of GridCraft is already installed." />
+    <MajorUpgrade AllowSameVersionUpgrades="yes" DowngradeErrorMessage="A newer version of Zetica Grid is already installed." />
     <MediaTemplate EmbedCab="yes" CompressionLevel="high" />
 
     <Icon Id="GridcraftIcon.ico" SourceFile="$(var.IconPath)" />
     <Property Id="ARPPRODUCTICON" Value="GridcraftIcon.ico" />
-    <Property Id="ARPURLINFOABOUT" Value="https://getartcraft.com/apps/gridcraft" />
-    <Property Id="ARPURLUPDATEINFO" Value="https://getartcraft.com/apps/gridcraft" />
-    <Property Id="ARPHELPLINK" Value="https://discord.gg/artcraft" />
+    <Property Id="ARPURLINFOABOUT" Value="https://www.zeticuz.xyz/" />
+    <Property Id="ARPURLUPDATEINFO" Value="https://github.com/ZETIC7Z/gridcraft/releases" />
+    <Property Id="ARPHELPLINK" Value="https://www.zeticuz.xyz/" />
 
     <!-- An explicit command-line value wins. Otherwise retain the previous installation's
          choice, defaulting to off for a fresh install. Run only in the first sequence so the
@@ -128,14 +128,14 @@
     </AdminUISequence>
 
     <StandardDirectory Id="ProgramFiles6432Folder">
-      <Directory Id="CraftSuiteFolder" Name="ArtCraft">
-        <Directory Id="INSTALLFOLDER" Name="GridCraft" />
+      <Directory Id="CraftSuiteFolder" Name="Zetica">
+        <Directory Id="INSTALLFOLDER" Name="Grid" />
       </Directory>
     </StandardDirectory>
     <StandardDirectory Id="ProgramMenuFolder" />
     <StandardDirectory Id="DesktopFolder" />
 
-    <Feature Id="Main" Title="GridCraft" Level="1">
+    <Feature Id="Main" Title="Zetica Grid" Level="1">
       <?if $(var.HasCraftFontLicences) = 1 ?>
       <ComponentGroupRef Id="CraftFontLicences" />
       <?endif?>
@@ -154,9 +154,11 @@
     <ComponentGroup Id="GridcraftFiles" Directory="INSTALLFOLDER">
       <Component Id="GridcraftApp" Guid="0507D4B6-12FF-4882-84E1-59083E74A4EB">
         <File Id="GridcraftExe" Source="$(var.BinDir)\gridcraft.exe" KeyPath="yes">
-          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="GridCraft" Description="GridCraft spreadsheet" WorkingDirectory="INSTALLFOLDER" Advertise="yes" Icon="GridcraftIcon.ico" IconIndex="0" />
+          <Shortcut Id="StartMenuShortcut" Directory="ProgramMenuFolder" Name="Zetica Grid" Description="Zetica Grid spreadsheets and data analysis" WorkingDirectory="INSTALLFOLDER" Advertise="no" />
+          <Shortcut Id="DesktopShortcut" Directory="DesktopFolder" Name="Zetica Grid" Description="Zetica Grid spreadsheets and data analysis" WorkingDirectory="INSTALLFOLDER" Advertise="no" />
         </File>
 
+        <RegistryValue Root="HKMU" Key="Software\Microsoft\Windows\CurrentVersion\App Paths\zetica-grid.exe" Value="[#gridcraftExe]" Type="string" />
         <RegistryValue Root="HKMU" Key="Software\Microsoft\Windows\CurrentVersion\App Paths\gridcraft.exe" Value="[#GridcraftExe]" Type="string" />
 
         <!-- ProgIds: how Explorer opens a file with GridCraft. Nothing here sets HKCR\.<ext>'s
@@ -187,6 +189,7 @@
         <RegistryValue Root="HKMU" Key="Software\GridCraft\Capabilities\FileAssociations" Name=".tsv" Value="GridCraft.TextData" Type="string" />
         <RegistryValue Root="HKMU" Key="Software\RegisteredApplications" Name="GridCraft" Value="Software\GridCraft\Capabilities" Type="string" />
       <RegistryValue Root="HKMU" Key="Software\GridCraft" Name="InstallDir" Value="[INSTALLFOLDER]" Type="string" />
+        <RegistryValue Root="HKMU" Key="Software\ZETICA\Grid" Name="InstallDir" Value="[INSTALLFOLDER]" Type="string" />
       </Component>
 
       <Component Id="GridcraftCli">
@@ -207,3 +210,4 @@
     </ComponentGroup>
   </Fragment>
 </Wix>
+

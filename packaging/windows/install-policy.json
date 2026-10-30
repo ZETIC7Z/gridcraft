@@ -1,4 +1,4 @@
-{
+﻿{
   "id": "gridcraft",
   "name": "GridCraft",
   "upgradeCode": "5511327B-F305-41BE-92D0-EB84944E7C4D",
@@ -148,3 +148,4 @@
   ],
   "mode": "dualScope"
 }
+
